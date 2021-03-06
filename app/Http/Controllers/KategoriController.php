@@ -16,8 +16,10 @@ class KategoriController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $kategori = DB::table('kategori')->join('users','kategori.id_user','=','users.id')
-        ->select('kategori.nama_kategori','users.name','kategori.created_at')->get();
+        // as /inisial
+        $kategori = DB::table('kategori as k')->join('users as u','k.id_user','=','u.id')
+        // fungsi select agar ddapat digunakan
+        ->select('k.nama_kategori','u.name','k.created_at','k.id_kategori')->get();
         // $data = ['kategoris'=>$this->KategoriModel->tampilKategori];
         return view('admin.kategori.v_kategori',compact('kategori'));
     }
@@ -28,7 +30,8 @@ class KategoriController extends Controller
 
     public function prosesTambah(Request $request){
         // validasi
-        $this->validate($request,[
+       // validasi
+        Request()->validate([
             'nama_kategori'=>'required|unique:kategori,nama_kategori'
         ],
         [
@@ -47,5 +50,35 @@ class KategoriController extends Controller
         ]);
         
         return redirect('admin/kategori');
+    }
+
+    public function edit($id_kategori){
+        $kategori=DB::table('kategori')->where('id_kategori',$id_kategori)->first();
+
+        return view('admin..kategori.v_edit',compact('kategori'));
+    }
+
+    public function editProses(Request $request,$id_kategori){
+        // validasi
+        Request()->validate([
+            'nama_kategori'=>'required|unique:kategori,nama_kategori'
+        ],
+        [
+            'nama_kategori.required'=>' Wajib di isi',
+            'nama_kategori.unique'=>'Kategori sudah ada'
+        ]);
+        DB::table('kategori')->where('id_kategori',$id_kategori)->update([
+            // setiap yang diinput di form masuk kesini
+            'nama_kategori' => $request->nama_kategori,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect('/admin/kategori');
+
+        
+
+
+
+        
     }
 }

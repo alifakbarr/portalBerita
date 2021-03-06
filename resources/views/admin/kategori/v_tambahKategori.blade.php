@@ -13,6 +13,9 @@
         <div class="form-group">
           <label for="exampleInputEmail1">Nama Kategori</label>
           <input type="text" name="nama_kategori" class="form-control" id="exampleInputEmail1" placeholder="Masukkan nama kategori">
+          @error('nama_kategori')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
         </div>
       </div>
       <!-- /.box-body -->

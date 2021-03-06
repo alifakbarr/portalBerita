@@ -9,6 +9,7 @@
       <th>Nama Kategori</th>
       <th>ID User</th>
       <th>Created At</th>
+      <th>Aksi</th>
     </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
         <td>{{ $kgr->nama_kategori }}</td>
         <td>{{ $kgr->name }}</td>
         <td>{{ $kgr->created_at }}</td>
+        <td><a href="/admin/kategori/edit/{{ $kgr->id_kategori }}" class="btn btn-warning">Edit</a></td>
       </tr>
       @php ($no++)
     @endforeach

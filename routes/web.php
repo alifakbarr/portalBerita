@@ -29,6 +29,9 @@ Route::get('/admin',[AdminController::class,'index']);
 Route::get('/admin/kategori',[KategoriController::class,'index']);
 Route::get('/admin/kategori/tambah',[KategoriController::class,'tambah']);
 Route::post('/admin/kategori/prosesTambah',[KategoriController::class,'prosesTambah']);
+Route::get('/admin/kategori/edit/{id_kategori}',[KategoriController::class,'edit']);
+Route::post('/admin/kategori/prosesEdit/{id_kategori}',[KategoriController::class,'editProses']);
+
 
 Auth::routes();
 
