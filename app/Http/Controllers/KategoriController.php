@@ -49,7 +49,7 @@ class KategoriController extends Controller
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);
         
-        return redirect('admin/kategori');
+        return redirect('admin/kategori')->with('pesan','Kategori Berhasil Ditambah');
     }
 
     public function edit($id_kategori){
@@ -73,12 +73,13 @@ class KategoriController extends Controller
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
-        return redirect('/admin/kategori');
-
+        return redirect('/admin/kategori')->with('pesan','Update Berhasil');
         
+    }
 
+    public function hapus($id_kategori){
+        DB::table('kategori')->where('id_kategori',$id_kategori)->delete();
 
-
-        
+        return redirect('/admin/kategori')->with('pesan','Kategori Sukses dihapus');
     }
 }
