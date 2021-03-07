@@ -35,7 +35,9 @@ Route::post('/admin/kategori/prosesEdit/{id_kategori}',[KategoriController::clas
 Route::get('/admin/kategori/hapus/{id_kategori}',[KategoriController::class,'hapus']);
 
 // manage artikel
-Route::get('/admin/artikel',[ArtikelController::class,'index']);
+Route::get('/admin/artikel',[ArtikelController::class,'index'])->name('artikel');
+Route::get('/admin/artikel/tambah',[ArtikelController::class,'tambah']);
+Route::post('/admin/artikel/tambahProses',[ArtikelController::class,'tambahProses']);
 
 
 Auth::routes();

@@ -1,6 +1,7 @@
 @extends('admin.layouts.v_dashboardAdmin')
 @section('title','Artikel')
 @section('content')
+<a href="/admin/artikel/tambah" class="btn btn-primary">Tambah</a>
 <table id="example2" class="table table-bordered table-hover">
   <thead>
   <tr>
