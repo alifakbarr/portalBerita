@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.v_admin');
+        $artikel=DB::table('artikel as a')->orderBy('created_at','asc')
+        ->join('kategori as k','k.id_kategori','=','a.id_kategori')
+        ->select('a.*','k.nama_kategori as kategori')
+        ->get();
+        return view('user.v_home',compact('artikel'));
     }
 }
