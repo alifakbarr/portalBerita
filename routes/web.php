@@ -40,7 +40,7 @@ Route::get('/admin/artikel/tambah',[ArtikelController::class,'tambah']);
 Route::post('/admin/artikel/tambahArtikel',[ArtikelController::class,'tambahArtikel']);
 Route::get('/admin/artikel/edit/{id_artikel}',[ArtikelController::class,'edit']);
 Route::post('/admin/artikel/prosesEditArtikel/{id_artikel}',[ArtikelController::class,'editProsesArtikel']);
-
+Route::get('/admin/artikel/hapus/{id_kategori}',[ArtikelController::class,'hapus']);
 
 Auth::routes();
 

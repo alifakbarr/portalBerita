@@ -122,4 +122,10 @@ class ArtikelController extends Controller
         DB::table('artikel')->where('id_artikel',$id_artikel)->update($data);
         return redirect('/admin/artikel')->with('pesan','Update Artikel Berhasil');
     }
+
+    public function hapus($id_artikel){
+        DB::table('artikel')->where('id_artikel',$id_artikel)->delete();
+
+        return redirect('/admin/artikel')->with('pesan','Hapus Artikel Berhasil');
+    }
 }

@@ -42,5 +42,28 @@
     @php ($no++)
   @endforeach
   
+  {{-- modal --}}
+  @foreach ($artikel as $art)
+<div class="modal modal-danger fade" id="hapus{{ $art->id_artikel }}" style="display: none;">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Hapus Artikel</h4>
+      </div>
+      <div class="modal-body">
+        <p>apakah anda yakin ingin menghapus <b>{{ $art->judul_artikel }}</b>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
+        <a href="/admin/artikel/hapus/{{ $art->id_artikel }}" class="btn btn-outline">Ya</a>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+@endforeach
 </table>
 @endsection
