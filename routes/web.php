@@ -38,6 +38,8 @@ Route::get('/admin/kategori/hapus/{id_kategori}',[KategoriController::class,'hap
 Route::get('/admin/artikel',[ArtikelController::class,'index'])->name('artikel');
 Route::get('/admin/artikel/tambah',[ArtikelController::class,'tambah']);
 Route::post('/admin/artikel/tambahArtikel',[ArtikelController::class,'tambahArtikel']);
+Route::get('/admin/artikel/edit/{id_artikel}',[ArtikelController::class,'edit']);
+Route::post('/admin/artikel/prosesEditArtikel/{id_artikel}',[ArtikelController::class,'editProsesArtikel']);
 
 
 Auth::routes();

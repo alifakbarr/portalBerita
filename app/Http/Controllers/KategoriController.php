@@ -55,7 +55,7 @@ class KategoriController extends Controller
     public function edit($id_kategori){
         $kategori=DB::table('kategori')->where('id_kategori',$id_kategori)->first();
 
-        return view('admin..kategori.v_edit',compact('kategori'));
+        return view('admin.kategori.v_edit',compact('kategori'));
     }
 
     public function editProses(Request $request,$id_kategori){

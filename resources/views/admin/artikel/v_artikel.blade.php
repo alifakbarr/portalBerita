@@ -16,6 +16,7 @@
     <th>Foto</th>
     <th>Judul</th>
     <th>Penulis</th>
+    <th>Kategori</th>
     <th>Created At</th>
     <th>Aksi</th>
   </tr>
@@ -28,12 +29,13 @@
       <td><img src="{{ url('foto_artikel/'.$art->gambar_artikel) }}" width="100"></td>
       <td>{{ $art->judul_artikel }}</td>
       <td>{{ $art->name }}</td>
+      <td>{{ $art->kategori }}</td>
       <td>{{ $art->created_at }}</td>
       <td>
-        {{-- <a href="/admin/kae/edit/{{ $art->id_artikel }}" class="btn btn-warning">Edit</a>
+        <a href="/admin/artikel/edit/{{ $art->id_artikel }}" class="btn btn-warning">Edit</a>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus{{ $art->id_artikel }}">
           Hapus
-        </button> --}}
+        </button>
       </td>
       
     </tr>
