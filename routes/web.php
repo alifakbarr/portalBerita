@@ -23,24 +23,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HomeController::class,'index']);
 
-// dashboard admin
-Route::get('/admin',[AdminController::class,'index']);
-
-// manage kategori
-Route::get('/admin/kategori',[KategoriController::class,'index'])->name('kategori');
-Route::get('/admin/kategori/tambah',[KategoriController::class,'tambah']);
-Route::post('/admin/kategori/prosesTambah',[KategoriController::class,'prosesTambah']);
-Route::get('/admin/kategori/edit/{id_kategori}',[KategoriController::class,'edit']);
-Route::post('/admin/kategori/prosesEdit/{id_kategori}',[KategoriController::class,'editProses']);
-Route::get('/admin/kategori/hapus/{id_kategori}',[KategoriController::class,'hapus']);
-
-// manage artikel
-Route::get('/admin/artikel',[ArtikelController::class,'index'])->name('artikel');
-Route::get('/admin/artikel/tambah',[ArtikelController::class,'tambah']);
-Route::post('/admin/artikel/tambahArtikel',[ArtikelController::class,'tambahArtikel']);
-Route::get('/admin/artikel/edit/{id_artikel}',[ArtikelController::class,'edit']);
-Route::post('/admin/artikel/prosesEditArtikel/{id_artikel}',[ArtikelController::class,'editProsesArtikel']);
-Route::get('/admin/artikel/hapus/{id_kategori}',[ArtikelController::class,'hapus']);
+  
+  // dashboard admin
+  Route::get('/admin',[AdminController::class,'index']);
+  
+  // manage kategori
+  Route::get('/admin/kategori',[KategoriController::class,'index'])->name('kategori');
+  Route::get('/admin/kategori/tambah',[KategoriController::class,'tambah']);
+  Route::post('/admin/kategori/prosesTambah',[KategoriController::class,'prosesTambah']);
+  Route::get('/admin/kategori/edit/{id_kategori}',[KategoriController::class,'edit']);
+  Route::post('/admin/kategori/prosesEdit/{id_kategori}',[KategoriController::class,'editProses']);
+  Route::get('/admin/kategori/hapus/{id_kategori}',[KategoriController::class,'hapus']);
+  
+  // manage artikel
+  Route::get('/admin/artikel',[ArtikelController::class,'index'])->name('artikel');
+  Route::get('/admin/artikel/tambah',[ArtikelController::class,'tambah']);
+  Route::post('/admin/artikel/tambahArtikel',[ArtikelController::class,'tambahArtikel']);
+  Route::get('/admin/artikel/edit/{id_artikel}',[ArtikelController::class,'edit']);
+  Route::post('/admin/artikel/prosesEditArtikel/{id_artikel}',[ArtikelController::class,'editProsesArtikel']);
+  Route::get('/admin/artikel/hapus/{id_artikel}',[ArtikelController::class,'hapus']);
+Route::get('/artikel/detailArtikel/{id_artikel}',[HomeController::class,'detailArtikel']);
 
 Auth::routes();
 
