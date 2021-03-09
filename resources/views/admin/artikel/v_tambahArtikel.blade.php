@@ -3,7 +3,7 @@
 @section('content')
 <form role="form" method="post" action="/admin/artikel/tambahArtikel" enctype="multipart/form-data">
   @csrf
-  <input type="hidden" name="id_artikel">
+  <input type="number" name="id_artikel" hidden>
   <div class="box-body">
     <div class="form-group">
       <label for="exampleInputEmail1">Judul</label>

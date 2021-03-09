@@ -43,11 +43,10 @@ class ArtikelController extends Controller
         // jika foto siswa tidak kosong/ada
         if(Request()->gambar_artikel<>""){
             $file=Request()->gambar_artikel;
-            $fileName=Request()->id_artikel.'.'.$file->extension();
+            $fileName=Request()->judul_artikel.'.'.$file->extension();
             $file->move(public_path('foto_artikel'),$fileName);
 
             $data=[
-                'id_artikel'=>Request()->id_artikel,
                 'judul_artikel'=>Request()->judul_artikel,
                 'isi_artikel'=>Request()->isi_artikel,
                 'id_kategori'=>Request()->id_kategori,
@@ -58,7 +57,6 @@ class ArtikelController extends Controller
             ];
         }else{
             $data=[
-                'id_artikel'=>Request()->id_artikel,
                 'judul_artikel'=>Request()->judul_artikel,
                 'isi_artikel'=>Request()->isi_artikel,
                 'id_kategori'=>Request()->id_kategori,
@@ -124,6 +122,10 @@ class ArtikelController extends Controller
     }
 
     public function hapus($id_artikel){
+        $artikel=DB::table('artikel')->where('id_artikel',$id_artikel)->first();
+        if($artikel<>""){
+            unlink(public_path('foto_artikel').'/'.$artikel->gambar_artikel);
+        }
         DB::table('artikel')->where('id_artikel',$id_artikel)->delete();
 
         return redirect('/admin/artikel')->with('pesan','Hapus Artikel Berhasil');
