@@ -204,7 +204,7 @@
           <img src="{{ asset('template/') }}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ Auth::user()->name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -471,10 +471,22 @@
 <script src="{{ asset('template/') }}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('template/') }}/dist/js/demo.js"></script>
+<script src="{{ asset('template/') }}/bower_components/ckeditor/ckeditor.js"></script>
+
+
+{{-- <script src="{{ asset('template/') }}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> --}}
 <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree()
   })
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor1')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+  })
 </script>
+
 </body>
 </html>
