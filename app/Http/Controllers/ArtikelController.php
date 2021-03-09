@@ -32,31 +32,43 @@ class ArtikelController extends Controller
         Request()->validate([
             'judul_artikel'=> 'required',
             'isi_artikel' => 'required',
-            'gambar_artikel'=>'required|mimes:jpg,bmp,png,jpeg',
+            'gambar_artikel'=>'mimes:jpg,bmp,png,jpeg',
             'id_kategori'=>'required',
         ],[
             'judul_artikel.required' =>'Wajib diisi',
             'isi_artikel.required' =>'Wajib diisi',
             'id_kategori.required' =>'Wajib diisi',
-            'gambar_artikel.required' =>'Wajib diisi',
             'gambar_artikel.mimes' =>'Wajib jpg,bmp,png,jpeg',
         ]);
+        // jika foto siswa tidak kosong/ada
+        if(Request()->gambar_artikel<>""){
+            $file=Request()->gambar_artikel;
+            $fileName=Request()->id_artikel.'.'.$file->extension();
+            $file->move(public_path('foto_artikel'),$fileName);
+
+            $data=[
+                'id_artikel'=>Request()->id_artikel,
+                'judul_artikel'=>Request()->judul_artikel,
+                'isi_artikel'=>Request()->isi_artikel,
+                'id_kategori'=>Request()->id_kategori,
+                'id_user'=>Auth::user()->id,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s'),
+                'gambar_artikel'=>$fileName,
+            ];
+        }else{
+            $data=[
+                'id_artikel'=>Request()->id_artikel,
+                'judul_artikel'=>Request()->judul_artikel,
+                'isi_artikel'=>Request()->isi_artikel,
+                'id_kategori'=>Request()->id_kategori,
+                'id_user'=>Auth::user()->id,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s')
+                ];
+        }
         
-        $file=Request()->gambar_artikel;
-        $fileName=Request()->judul_artikel.'.'.$file->extension();
-        $file->move(public_path('foto_artikel'),$fileName);
-
-
-
-        DB::table('artikel')->insert([
-            'judul_artikel'=>Request()->judul_artikel,
-            'isi_artikel'=>Request()->isi_artikel,
-            'id_kategori'=>Request()->id_kategori,
-            'id_user'=>Auth::user()->id,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
-            'gambar_artikel'=>$fileName,
-        ]);
+        DB::table('artikel')->insert($data);
         return redirect('/admin/artikel')->with('pesan','Tambah Artikel Berhasil');
     }
 
