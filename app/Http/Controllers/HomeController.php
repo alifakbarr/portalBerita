@@ -34,13 +34,25 @@ class HomeController extends Controller
     public function detailArtikel($id_artikel){
         $artikel=DB::table('artikel as a')
         ->join('kategori as k','k.id_kategori','=','a.id_kategori')
-        ->select('a.*','k.nama_kategori as kategori')
+        ->join('users as u','a.id_user','=','u.id')
+        ->select('a.*','k.nama_kategori as kategori','u.name')
         ->where('id_artikel',$id_artikel)->first();
-        // ->join('kategori as k','a.id_kategori','=','k.id_kategori')
-        // ->select('a.*','k.id_kategori','k.nama_kategori as kategori')
-        // ->where('id_kategori',$id_artikel)
-        // ->get();
 
-        return view('user.v_detailArtikel',compact('artikel'));
+        $komentar=DB::table('komentar')->where('id_artikel',$id_artikel)->get();
+
+        $hitung=DB::table('komentar')->where('id_artikel',$id_artikel)->count();
+        return view('user.v_detailArtikel',compact('artikel','komentar','hitung'));
+    }
+
+    public function tambahKomentar(Request $request,$id_artikel){
+        DB::table('komentar')->insert([
+            'id_artikel'=>$id_artikel,
+            'email'=>$request->email,
+            'komentar'=>$request->komentar,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect('/artikel/detailArtikel/'.$id_artikel);
     }
 }

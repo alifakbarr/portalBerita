@@ -45,6 +45,7 @@ Route::get('/',[HomeController::class,'index']);
   Route::get('/admin/artikel/hapus/{id_artikel}',[ArtikelController::class,'hapus']);
   
   Route::get('/artikel/detailArtikel/{id_artikel}',[HomeController::class,'detailArtikel']);
+  Route::post('/artikel/komentar/{id_komentar}',[HomeController::class,'tambahKomentar']);
 
   Route::get('logout',[LoginController::class,'logout']);
 Auth::routes();
