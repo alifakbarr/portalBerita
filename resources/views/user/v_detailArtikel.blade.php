@@ -1,5 +1,7 @@
 @extends('layouts.v_template')
-@section('title','test')
+@section('title',)
+    {{$artikel->judul_artikel}}
+@endsection
 @section('content')
     <h1>{{ $artikel->judul_artikel }}</h1>
     <br>
