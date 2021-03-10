@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KomentarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,10 +44,14 @@ Route::get('/',[HomeController::class,'index']);
   Route::get('/admin/artikel/edit/{id_artikel}',[ArtikelController::class,'edit']);
   Route::post('/admin/artikel/prosesEditArtikel/{id_artikel}',[ArtikelController::class,'editProsesArtikel']);
   Route::get('/admin/artikel/hapus/{id_artikel}',[ArtikelController::class,'hapus']);
-  
+
+  // manage komentar
+  Route::get('/admin/komentar',[KomentarController::class,'index']);
+  Route::get('/admin/komentar/hapus/{id_komentar}',[KomentarController::class,'hapus']);
+  // user bisa lihat
   Route::get('/artikel/detailArtikel/{id_artikel}',[HomeController::class,'detailArtikel']);
   Route::post('/artikel/komentar/{id_komentar}',[HomeController::class,'tambahKomentar']);
-
+  // log out
   Route::get('logout',[LoginController::class,'logout']);
 Auth::routes();
 
