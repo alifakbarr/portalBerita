@@ -16,12 +16,26 @@
         <a class="nav-link" href="/admin">Login</a>
       </li>
        @endif
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Kategori
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          @foreach ($kategori as $kg)
+          @php
+          $hitung=DB::table('artikel')->where('id_kategori',$kg->id_kategori)->count();
+
+          @endphp
+          <li><a class="dropdown-item" href="#">{{ $kg->nama_kategori }} <b style="color: green">{{ $hitung }}</b></a></li>
+          @endforeach
+        </ul>
+      </div>
         </ul>
       </div>
     </div>

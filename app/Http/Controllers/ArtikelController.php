@@ -40,33 +40,48 @@ class ArtikelController extends Controller
             'id_kategori.required' =>'Wajib diisi',
             'gambar_artikel.mimes' =>'Wajib jpg,bmp,png,jpeg',
         ]);
-        // jika foto siswa tidak kosong/ada
-        if(Request()->gambar_artikel<>""){
-            $file=Request()->gambar_artikel;
-            $fileName=Request()->judul_artikel.'.'.$file->extension();
-            $file->move(public_path('foto_artikel'),$fileName);
 
-            $data=[
+        // jika foto siswa tidak kosong/ada
+        // if(Request()->gambar_artikel<>""){
+            
+
+            $artikel = DB::table('artikel')->insert([
+                // 'id_artikel'=>Request()->id_artikel,
                 'judul_artikel'=>Request()->judul_artikel,
                 'isi_artikel'=>Request()->isi_artikel,
                 'id_kategori'=>Request()->id_kategori,
                 'id_user'=>Auth::user()->id,
+                'gambar_artikel' => '',
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s'),
-                'gambar_artikel'=>$fileName,
-            ];
-        }else{
-            $data=[
-                'judul_artikel'=>Request()->judul_artikel,
-                'isi_artikel'=>Request()->isi_artikel,
-                'id_kategori'=>Request()->id_kategori,
-                'id_user'=>Auth::user()->id,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s')
-                ];
-        }
-        
-        DB::table('artikel')->insert($data);
+            ]);
+
+            $file=Request()->gambar_artikel;
+            $fileName= DB::getPdo()->lastInsertId().'.'.$file->extension();
+            $file->move(public_path('foto_artikel'),$fileName);
+            
+            // return $artikel->id;
+            DB::table('artikel')->where('id_artikel', DB::getPdo()->lastInsertId())->update([
+                'gambar_artikel' => $fileName,
+            ]);
+        //     $data=[
+
+        //         'judul_artikel'=>Request()->judul_artikel,
+        //         'isi_artikel'=>Request()->isi_artikel,
+        //         'id_kategori'=>Request()->id_kategori,
+        //         'id_user'=>Auth::user()->id,
+        //         'created_at'=>date('Y-m-d H:i:s'),
+        //         'updated_at'=>date('Y-m-d H:i:s')
+        //         ];
+        // }
+        // dd($data);
+        // DB::table('artikel')->insert($data);
+
+        // $artikel = DB::table('artikel')->get();
+        // DB::table('artikel')->where('id_artikel',$artikel->id_artikel)->update([
+            
+             
+        // ]);
         return redirect('/admin/artikel')->with('pesan','Tambah Artikel Berhasil');
     }
 
@@ -124,7 +139,8 @@ class ArtikelController extends Controller
     public function hapus($id_artikel){
         $artikel=DB::table('artikel')->where('id_artikel',$id_artikel)->first();
         if($artikel<>""){
-            unlink(public_path('foto_artikel').'/'.$artikel->gambar_artikel);
+            $path = public_path('foto_artikel/'.$artikel->gambar_artikel);
+            unlink($path);
         }
         DB::table('artikel')->where('id_artikel',$id_artikel)->delete();
 

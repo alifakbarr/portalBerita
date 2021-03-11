@@ -28,7 +28,9 @@ class HomeController extends Controller
         ->join('kategori as k','k.id_kategori','=','a.id_kategori')
         ->select('a.*','k.nama_kategori as kategori')
         ->get();
-        return view('user.v_home',compact('artikel'));
+        $kategori=DB::table('kategori')->get();
+        
+        return view('user.v_home',compact('artikel','kategori'));
     }
 
     public function detailArtikel($id_artikel){
@@ -37,11 +39,11 @@ class HomeController extends Controller
         ->join('users as u','a.id_user','=','u.id')
         ->select('a.*','k.nama_kategori as kategori','u.name')
         ->where('id_artikel',$id_artikel)->first();
-
+        $kategori=DB::table('kategori')->get();
         $komentar=DB::table('komentar')->where('id_artikel',$id_artikel)->get();
 
         $hitung=DB::table('komentar')->where('id_artikel',$id_artikel)->count();
-        return view('user.v_detailArtikel',compact('artikel','komentar','hitung'));
+        return view('user.v_detailArtikel',compact('artikel','komentar','hitung','kategori'));
     }
 
     public function tambahKomentar(Request $request,$id_artikel){
