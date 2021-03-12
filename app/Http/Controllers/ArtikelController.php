@@ -46,7 +46,6 @@ class ArtikelController extends Controller
             
 
             $artikel = DB::table('artikel')->insert([
-                // 'id_artikel'=>Request()->id_artikel,
                 'judul_artikel'=>Request()->judul_artikel,
                 'isi_artikel'=>Request()->isi_artikel,
                 'id_kategori'=>Request()->id_kategori,
@@ -60,28 +59,9 @@ class ArtikelController extends Controller
             $fileName= DB::getPdo()->lastInsertId().'.'.$file->extension();
             $file->move(public_path('foto_artikel'),$fileName);
             
-            // return $artikel->id;
             DB::table('artikel')->where('id_artikel', DB::getPdo()->lastInsertId())->update([
                 'gambar_artikel' => $fileName,
             ]);
-        //     $data=[
-
-        //         'judul_artikel'=>Request()->judul_artikel,
-        //         'isi_artikel'=>Request()->isi_artikel,
-        //         'id_kategori'=>Request()->id_kategori,
-        //         'id_user'=>Auth::user()->id,
-        //         'created_at'=>date('Y-m-d H:i:s'),
-        //         'updated_at'=>date('Y-m-d H:i:s')
-        //         ];
-        // }
-        // dd($data);
-        // DB::table('artikel')->insert($data);
-
-        // $artikel = DB::table('artikel')->get();
-        // DB::table('artikel')->where('id_artikel',$artikel->id_artikel)->update([
-            
-             
-        // ]);
         return redirect('/admin/artikel')->with('pesan','Tambah Artikel Berhasil');
     }
 
@@ -111,7 +91,8 @@ class ArtikelController extends Controller
         // jika foto siswa tidak kosong/ada
         if(Request()->gambar_artikel<>""){
             $file=Request()->gambar_artikel;
-            $fileName=Request()->judul_artikel.'.'.$file->extension();
+            // $fileName= DB::getPdo()->lastInsertId().'.'.$file->extension();
+            $fileName=Request()->id_artikel.'.'.$file->extension();
             $file->move(public_path('foto_artikel'),$fileName);
 
             $data=[

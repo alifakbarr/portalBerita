@@ -15,10 +15,11 @@ class CreateTableKomentar extends Migration
     {
         Schema::create('komentar', function (Blueprint $table) {
             $table->increments('id_komentar');
-            $table->integer('id_artikel');
+            $table->integer('id_artikel')->unsigned();
             $table->string('email');
             $table->text('komentar');
             $table->timestamps();
+            // $table->foreign('id_artikel')->references('id_artikel')->on('artikel')->onDelete('cascade');
         });
     }
 
