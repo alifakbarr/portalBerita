@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $artikel=DB::table('artikel as a')->orderBy('created_at','asc')
         ->join('kategori as k','k.id_kategori','=','a.id_kategori')
-        ->select('a.*','k.nama_kategori as kategori')
+        ->select('a.*','k.nama_kategori as kategori','k.id_kategori')
         ->get();
         $kategori=DB::table('kategori')->get();
         
@@ -34,6 +34,9 @@ class HomeController extends Controller
     }
 
     public function detailArtikel($id_artikel){
+        if(!DB::table('artikel')->where('id_artikel',$id_artikel)->first()){
+            abort(404);
+        }
         $artikel=DB::table('artikel as a')
         ->join('kategori as k','k.id_kategori','=','a.id_kategori')
         ->join('users as u','a.id_user','=','u.id')
@@ -56,5 +59,16 @@ class HomeController extends Controller
         ]);
 
         return redirect('/artikel/detailArtikel/'.$id_artikel);
+    }
+
+    public function artikelKategori($id_kategori){
+        $data=DB::table('artikel as a')
+        ->join('kategori as k','k.id_kategori','=','a.id_kategori')
+        ->where('a.id_kategori',$id_kategori)
+        ->select('a.*','k.nama_kategori as kategori')
+        ->orderBy('created_at','asc')
+        ->get();
+        $kategori=DB::table('kategori')->get();
+        return view('user.v_artikelKategori',compact('data','kategori'));
     }
 }

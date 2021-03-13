@@ -30,9 +30,8 @@
           @foreach ($kategori as $kg)
           @php
           $hitung=DB::table('artikel')->where('id_kategori',$kg->id_kategori)->count();
-
           @endphp
-          <li><a class="dropdown-item" href="#">{{ $kg->nama_kategori }} <b style="color: green">{{ $hitung }}</b></a></li>
+          <li><a class="dropdown-item" href="/artikel/artikelKategori/{{ $kg->id_kategori }}">{{ $kg->nama_kategori }} <b style="color: green">{{ $hitung }}</b></a></li>
           @endforeach
         </ul>
       </div>

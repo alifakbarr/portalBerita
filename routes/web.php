@@ -51,6 +51,7 @@ Route::get('/',[HomeController::class,'index']);
   // user bisa lihat
   Route::get('/artikel/detailArtikel/{id_artikel}',[HomeController::class,'detailArtikel']);
   Route::post('/artikel/komentar/{id_komentar}',[HomeController::class,'tambahKomentar']);
+  Route::get('/artikel/artikelKategori/{id_kategori}',[HomeController::class,'artikelKategori']);
   // log out
   Route::get('logout',[LoginController::class,'logout']);
 Auth::routes();
